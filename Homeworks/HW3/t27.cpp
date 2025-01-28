@@ -11,7 +11,7 @@ int bit_count(int n){
     int count = 0;
     while (n) {
         count++;
-        n >>= 1; // Зсуваємо число вправо
+        n >>= 1;
     }
     return count;
 }
