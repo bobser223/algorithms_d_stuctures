@@ -58,7 +58,6 @@ int  max_cyclic_shift(int n){
 
 
 
-
 int main(){
     int n;
     cin >> n;
