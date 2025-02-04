@@ -15,7 +15,7 @@ struct robots_time{
     }
 };
 
-void find_execution_time(ll needed_items, ll amount_1, std::vector<ll>& A_robots_time, ll amount_2, std::vector<ll>& B_robots_time){
+void find_execution_time(ll needed_items, std::vector<ll>& A_robots_time, std::vector<ll>& B_robots_time){
     priority_queue<robots_time, vector<robots_time>, greater<robots_time>> pqA; // пріоритетна черга для A
     priority_queue<robots_time, vector<robots_time>, greater<robots_time>> pqB; // пріоритетна черга для B
     /*
