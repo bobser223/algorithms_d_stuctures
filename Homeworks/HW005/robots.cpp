@@ -44,8 +44,8 @@ void find_execution_time(ll needed_items, ll amount_1, std::vector<ll>& A_robots
 
         times[i] = top.busy_time;
         /*
-         * записуємо для кожного робота
-         * скільки він в цілому попрацював
+         * записуємо для кожної
+         * деталі  час виконання
          */
         pqA.push({top.busy_time + top.default_exe_time, top.default_exe_time});
         /*
