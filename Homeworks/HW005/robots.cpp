@@ -4,7 +4,7 @@
 
 using namespace std;
 
-typedef long long ll;
+typedef int ll;
 
 struct robots_time{
     ll busy_time = 0;
@@ -34,7 +34,7 @@ void find_execution_time(ll needed_items, std::vector<ll>& A_robots_time, std::v
 
     vector<ll> times(needed_items, 0);
     /*
-     * сюди будемо записувати почерзі час виконання роботи i-м роботом
+     * сюди будемо записувати почерзі час виконання кожної деталі
      */
 
 
@@ -114,6 +114,6 @@ int main(){
     for (ll i = 0; i < second_robots_amount; i++)
         cin >> second_robots_efficiency[i];
 
-    find_execution_time(items_needed, first_robots_amount, first_robots_efficiency, second_robots_amount, second_robots_efficiency);
+    find_execution_time(items_needed, first_robots_efficiency, second_robots_efficiency);
     return 0;
 }

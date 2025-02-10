@@ -7,26 +7,25 @@ double f(double x){
 }
 
 double solve(){
-    double l, r;
-    l = 1.6;
-    r = 3;
+    double l = 1.6, r = 3;
     double m = l + (r - l) / 2;
-    while ((f(m) - 0.3) > 0.0000001){
-
-        if (f(m) < 0.3333)
+    while (fabs(f(m) - 1.0/3) > 1e-7) {
+        if (f(m) > 1.0/3)
             l = m;
         else
             r = m;
         m = l + (r - l) / 2;
     }
-
-    return l;
+    return m;
 }
+
 
 
 
 int main(){
-    std::cout << solve() << std::endl;
-    std::cout << f(solve()) - 0.3 << std::endl;
+    std::cout << solve() << std::endl; // 2.27886
+    std::cout << f(solve()) - 1/3.0 << std::endl; // -3.02505e-09 ~ 0
 
 }
+
+

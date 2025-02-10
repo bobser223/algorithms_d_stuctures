@@ -24,7 +24,8 @@ double find(double a, double b, double c){
 
 
 int main(){
-    std::cout << find(0, 10, 5) << std::endl;
-    std::cout << f(find(0, 10, 5)) << std::endl;
+    std::cout << find(0, 10, 5) << std::endl; // 1.3789
+    std::cout << f(find(0, 10, 5)) << std::endl; // 5.00001
 
 }
+

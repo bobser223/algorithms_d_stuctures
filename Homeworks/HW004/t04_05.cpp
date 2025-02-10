@@ -26,7 +26,8 @@ double solve(){
 
 
 int main(){
-    std::cout << solve() << std::endl;
-    std::cout << f(solve()) - 6 << std::endl;
+    std::cout << solve() << std::endl; // 1
+    std::cout << f(solve()) - 6 << std::endl; // 0
 
 }
+
