@@ -5,14 +5,14 @@ double f(double m) {
     return m*m + sqrt(m);
 }
 
-double solve(int C){
-    double eps = 0.0000006;
+double solve(double C){
+    double eps = 0.0000000006;
 
     double l = 0;
-    double r = f(1000);
-    while (abs(r - l) > eps){
+    double r = 10000000000.0;
+
+    while (fabs(r - l) > eps){
         double m = l + (r - l) / 2.0;
-        std::cout << m << std::endl;
         if (f(m) < C){
             l = m;
         } else {
@@ -24,7 +24,7 @@ double solve(int C){
 
 
 int main(){
-    int C;
+    double C;
     std::cin >> C;
     std::cout << solve(C) << std::endl;
 
