@@ -9,7 +9,7 @@
 #include "nums_generator.h"
 
 
-#define NUM_COUNT 100
+#define NUM_COUNT 1000000
 
 
 void legit_check(int* arr, int size, char* sort_name){
