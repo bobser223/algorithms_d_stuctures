@@ -6,10 +6,12 @@
 #include "selection.h"
 #include "bubble.h"
 #include "insertion.h"
+#include "bottom_merge.h"
+
 #include "nums_generator.h"
 
 
-#define NUM_COUNT 1000000
+#define NUM_COUNT 1000000000
 
 
 void legit_check(int* arr, int size, char* sort_name){
@@ -28,22 +30,43 @@ int main(void){
 
     int* arr = (int*)calloc(NUM_COUNT, sizeof(int));
     int* sorted = (int*)calloc(NUM_COUNT, sizeof(int));
+    clock_t start = clock();
+    clock_t end = clock();
+    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
 
 // /////////////////////// merge /////////////////////
 
+//    read(arr, NUM_COUNT);
+//
+//    start = clock();
+//
+//    sorted = merge_sort(arr, NUM_COUNT);
+////    print_arr(sorted, NUM_COUNT);
+//
+//    end = clock();
+//
+//    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+//
+//    printf("Sorting %d elements by merge sort took %f seconds.\n",NUM_COUNT, time_taken);
+//    legit_check(sorted, NUM_COUNT, "merge");
+
+/////////////////////////// b_merge ////////////////////////////
     read(arr, NUM_COUNT);
 
-    clock_t start = clock();
+    start = clock();
 
-    sorted = merge_sort(arr, NUM_COUNT);
-//    print_arr(sorted, NUM_COUNT);
 
-    clock_t end = clock();
+    printf("sorting started\n");
 
-    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+    bottomUpMergeSort(arr, NUM_COUNT);
+
+    end = clock();
+
+    time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
 
     printf("Sorting %d elements by merge sort took %f seconds.\n",NUM_COUNT, time_taken);
-    legit_check(sorted, NUM_COUNT, "merge");
+    legit_check(arr, NUM_COUNT, "bottom merge");
+
 //////////////////////////// quick /////////////////////
     read(arr, NUM_COUNT);
 

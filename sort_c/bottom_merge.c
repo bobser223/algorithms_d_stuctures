@@ -7,16 +7,16 @@ void fill_arr(int* arr, size_t size) {
         arr[i] = rand() % size;
 }
 
-void print_arr(int* arr, size_t size) {
-    printf("[ ");
-    for (size_t i = 0; i < size; i++)
-        printf("%d, ", arr[i]);
-    printf("]\n");
-}
+//void print_arr(int* arr, size_t size) {
+//    printf("[ ");
+//    for (size_t i = 0; i < size; i++)
+//        printf("%d, ", arr[i]);
+//    printf("]\n");
+//}
 
 // Функція злиття двох відсортованих підмасивів arr[left..mid-1] та arr[mid..right-1]
 // в допоміжний масив aux.
-void merge(int* arr, int* aux, size_t left, size_t mid, size_t right) {
+void b_merge(int* arr, int* aux, size_t left, size_t mid, size_t right) {
     size_t i = left, j = mid, k = left;
 
     while (i < mid && j < right) {
@@ -55,7 +55,7 @@ void bottomUpMergeSort(int* arr, size_t n) {
             if (right > n)
                 right = n;
 
-            merge(arr, aux, left, mid, right);
+            b_merge(arr, aux, left, mid, right);
         }
 
         // Скопіювати допоміжний масив назад у основний
@@ -66,28 +66,28 @@ void bottomUpMergeSort(int* arr, size_t n) {
     free(aux);
 }
 
-int main() {
-    // Зауважте: для тестування з великими розмірами (наприклад, 1 мільярд)
-    // може знадобитися величезна кількість пам'яті, тому для тестів використовуйте менший розмір.
-    size_t arr_size = 1000000000; // приклад з 1 мільйоном елементів
-    int* arr_to_sort = (int*)calloc(arr_size, sizeof(int));
-    if (!arr_to_sort) {
-        perror("Помилка виділення пам'яті для масиву");
-        exit(EXIT_FAILURE);
-    }
-
-    fill_arr(arr_to_sort, arr_size);
-    // print_arr(arr_to_sort, arr_size); // Для невеликих масивів
-
-    clock_t start = clock();
-    bottomUpMergeSort(arr_to_sort, arr_size);
-    clock_t end = clock();
-
-    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
-    printf("Сортування зайняло %f секунд.\n", time_taken);
-
-    // print_arr(arr_to_sort, arr_size); // Перевірка результату
-
-    free(arr_to_sort);
-    return 0;
-}
+//int main() {
+//    // Зауважте: для тестування з великими розмірами (наприклад, 1 мільярд)
+//    // може знадобитися величезна кількість пам'яті, тому для тестів використовуйте менший розмір.
+//    size_t arr_size = 1000000000; // приклад з 1 мільйоном елементів
+//    int* arr_to_sort = (int*)calloc(arr_size, sizeof(int));
+//    if (!arr_to_sort) {
+//        perror("Помилка виділення пам'яті для масиву");
+//        exit(EXIT_FAILURE);
+//    }
+//
+//    fill_arr(arr_to_sort, arr_size);
+//    // print_arr(arr_to_sort, arr_size); // Для невеликих масивів
+//
+//    clock_t start = clock();
+//    bottomUpMergeSort(arr_to_sort, arr_size);
+//    clock_t end = clock();
+//
+//    double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+//    printf("Сортування зайняло %f секунд.\n", time_taken);
+//
+//    // print_arr(arr_to_sort, arr_size); // Перевірка результату
+//
+//    free(arr_to_sort);
+//    return 0;
+//}
