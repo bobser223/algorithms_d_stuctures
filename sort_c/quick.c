@@ -45,7 +45,10 @@ int* quick_sort(int* arr_to_sort, int begin, int end){
         if (left >= right)
             break;
 
-        swap(arr_to_sort, left, right);
+//        swap(arr_to_sort, left, right);
+        int buffer = arr_to_sort[left];
+        arr_to_sort[left] = arr_to_sort[right];
+        arr_to_sort[right] = buffer;
 
         left++;
         right--;
