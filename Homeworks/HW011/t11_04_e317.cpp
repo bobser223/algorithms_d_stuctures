@@ -113,6 +113,13 @@ std::string karatsuba(const std::string &X, const std::string &Y) {
         return cached;
     }
 
+    if (X.size() <= 7 && Y.size() <= 7){
+        Number _X(X);
+        Number _Y(Y);
+        set_memo(X, Y, (_X*_Y).get_string());
+        return get_memo(X, Y);
+    }
+
     if (X == "0" || Y == "0") {
         set_memo(X, Y, "0");
         return "0";
