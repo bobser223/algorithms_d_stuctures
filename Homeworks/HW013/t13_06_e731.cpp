@@ -3,21 +3,46 @@
 #include <string>
 using namespace std;
 
+struct Node {
+    string str;
+    int priority;
+};
 
 string to_infix(const string& str) {
-    stack<string> st;
+    char previous = '0';
+    stack<Node> st;
     for (int i = (int)str.size() - 1; i >= 0; --i) {
         char c = str[i];
-        if (c=='+'||c=='-'||c=='*'||c=='/') {
-            if (st.size()<2) return "";
-            string a = st.top(); st.pop();
-            string b = st.top(); st.pop();
-            st.push(a + c + b);
+        if (isalpha(c)) {
+            st.push({string(1, c), 3});
         } else {
-            st.push(string(1,c));
+            int curr_priority;
+
+            if (c == '+' || c == '-'){
+                curr_priority = 1;
+            } else {
+                curr_priority = 2;
+            }
+
+            Node left = st.top(); st.pop();
+            Node right = st.top(); st.pop();
+
+            string l_string = left.str;
+            string r_string = right.str;
+
+            if (left.priority < curr_priority){
+                l_string = "(" + l_string + ")";
+            }
+            if (right.priority < curr_priority ||
+            (right.priority == curr_priority && (c == '-' || c == '/'))){
+                r_string = "(" + r_string + ")";
+            }
+
+            st.push({l_string + c + r_string, curr_priority});
         }
+
     }
-    return st.empty() ? "" : st.top();
+    return st.empty() ? "" : st.top().str;
 }
 
 
