@@ -48,9 +48,9 @@ public:
         Node* curr = head;
         tail = head;
         while (curr != nullptr){
-            Node* nextNode = curr->next; // save next
-            curr->next = prev;           // reverse pointer
-            prev = curr;                 // move prev up
+            Node* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
             curr = nextNode;
         }
         head = prev;
