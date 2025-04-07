@@ -56,3 +56,16 @@ public:
         head = prev;
     }
 };
+
+
+int main(){
+    List list;
+    int n, buff;
+    std::cin >> n;
+    for(int i = 0; i < n; i++){
+        std::cin >> buff;
+        list.addToTail(buff);
+    }
+    list.Print();
+    list.PrintReverse();
+}
