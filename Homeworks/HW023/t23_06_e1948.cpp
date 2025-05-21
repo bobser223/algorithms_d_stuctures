@@ -1,48 +1,68 @@
 #include <iostream>
-#include <stack>
 #include <vector>
-#include <unordered_set>
+#include <stack>
 #include <set>
 
+using namespace std;
 
 #define WHITE 0
-#define BLACK 2
 #define GRAY 1
+#define BLACK 2
 
 
-using namespace std;
-using sz = size_t;
+bool has_cycle = false;
+vector<vector<int>> graph;
 
-struct Node{
-    sz value;
-    int color;
-    unordered_set<Node> neighbours;
-
-
-    explicit Node(int val):value(val) {
-        color = WHITE;
+void dfs(int id, vector<int>& vec, stack<int>& st){
+    if (has_cycle) return;
+    if (vec[id] == GRAY){
+        has_cycle = true;
+        return;
     }
 
+    if (vec[id] == BLACK) return;
 
-};
+    vec[id] = GRAY;
 
-void topological_sort(vector<Node>& graph, sz n){
+    for (int i: graph[id])
+            dfs(i, vec, st);
 
+
+    vec[id] = BLACK;
+    st.push(id);
 
 }
 
 
+
+
 int main(){
-    sz n, m;
+    int n, m, b1, b2;
     cin >> n >> m;
+    graph.resize(n+1);
 
-    vector<Node> graph;
-
-    sz b1, b2;
-    for(sz i = 0; i < m; i++){
+    for(int i = 0; i < m; i++){
         cin >> b1 >> b2;
-        graph[b1].neighbours.insert(b2);
+        graph[b1].push_back(b2);
     }
 
 
+    std::vector<int> vec(n+1, WHITE);
+    std::stack<int> st;
+
+    for(int id = 1; id <= n; id++){
+        dfs(id, vec, st);
+    }
+
+
+    if (has_cycle){
+        std::cout << -1 << endl;
+        return 0;
+    }
+
+    while(!st.empty()){
+
+        cout << st.top() << " ";
+        st.pop();
+    }
 }
