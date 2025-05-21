@@ -326,6 +326,7 @@ private:
                     node = root;
                 }
             }
+
                 // Дзеркальний випадок
             else {
                 Node* brother = node->parent->left;
