@@ -85,7 +85,7 @@ int main(){
     cin >> n;
 
     Coord start, end;
-
+    
     vector<vector<char>> maze(n, std::vector<char>(n));
 
     for (int i = 0; i < n; i++){
