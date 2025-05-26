@@ -1,8 +1,11 @@
-#include <map>
 #include <vector>
+#include <iostream>
+#include <map>
+#include <stack>
 
 #define SHIT_RETURN -100500
 #define SOMETHING 100500
+#define MINIMUM -10050000
 
 
 using std::map;
@@ -93,9 +96,29 @@ public:
             items[key] = {heap_size, priority};
             sift_up(static_cast<int>(heap_size));
         } else {
-            update_priority(key, priority);
+//            update_priority(key, priority);
+            if (priority < items[key].priority) {
+                update_priority(key, priority);
+            }
         }
     }
+
+    std::pair<int,int> extract_min() {
+        if (heap_size == 0) return {SHIT_RETURN, SOMETHING};
+
+        int key = heap[1];
+        int pr  = items[key].priority;
+
+
+        swap_nodes(1, heap_size);
+        heap.pop_back();
+        items.erase(key);
+        --heap_size;
+        sift_down(1);
+
+        return {key, pr};
+    }
+
 
     int get_minimum(){
         if (heap_size){
@@ -116,6 +139,13 @@ public:
         return items.find(key) != items.end();
     }
 
+    [[nodiscard]] int get_priority(int key) {
+        if (contains(key))
+            return items.at(key).priority;
+        else
+            return MINIMUM;
+    }
+
     void update_priority(int key, int new_priority){
         int old_priority = items[key].priority;
         items[key].priority = new_priority;
@@ -126,4 +156,97 @@ public:
             sift_up(items[key].position);
         }
     }
+
+    [[nodiscard]] bool empty() const{ return heap_size == 0;}
 };
+
+
+#define sz size_t
+
+using namespace std;
+
+struct Edge{
+    int to, weight;
+};
+
+class Graph{
+private:
+    vector<vector<Edge>> graph;
+    size_t size;
+    bool oriented;
+public:
+    explicit Graph(size_t _size, bool _oriented=false): size(_size), oriented(_oriented){
+        graph.resize(_size+1); // 1 - based;
+    }
+
+    void add(int from, int to, int  weight){
+
+        graph[from].emplace_back(to, weight);
+        if (!oriented){
+            graph[to].emplace_back(from, weight);
+        }
+    }
+
+    vector<vector<Edge>> get_container(){
+        return graph;
+    }
+
+    void prim(int p, int _q){
+        vector<int> parent(size+1, -1);
+        int total_weight = 0;
+
+        size_t processed_cnt = 0;
+        min_heap pq;
+        pq.push(p, 0);
+        vector<bool> used(size+1, false);
+
+
+        while(!pq.empty() && processed_cnt < size){
+            auto [v_min, w_min] = pq.extract_min();
+
+            used[v_min] = true;
+            processed_cnt++;
+            total_weight += w_min;
+
+            for (auto [neighbour, weight]: graph[v_min]){
+                if (used[neighbour])
+                    continue;
+
+                // якщо вершини ще немає в купі, або нова вага краща за стару
+                if (!pq.contains(neighbour) || weight < pq.get_priority(neighbour)) {
+                    pq.push(neighbour, weight);
+                    parent[neighbour] = v_min;
+                }
+            }
+        }
+
+        if (parent[p] == _q || parent[_q] == p)
+            cout << "YES" << endl;
+        else
+            cout << "NO" << endl;
+    }
+
+
+};
+
+void in_loop(){
+    int n, m, p, q;
+    cin >> n >> m >> p >> q;
+    Graph g(n);
+
+    int u, v, w;
+    for (int i = 0; i < m; i++){
+        cin >> u >> v >> w;
+        g.add(u, v, w);
+    }
+    g.prim(p, q);
+}
+
+
+int main(){
+    int t;
+    cin >> t;
+    for (int _ = 0; _ < t; _++){
+        in_loop();
+    }
+}
